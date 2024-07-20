@@ -1,0 +1,118 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+
+.card.flip {
+    transform: scale(1.1);
+    background-color: #fffa;
+}
+
+.card .card-content {
+    display: none;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card.flip .card-content {
+    display: block;
+}
+
+.card.selected {
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.card.match {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    pointer-events: none;
+}
+
+.card.click {
+    animation: clickEffect 0.2s;
+}
+
+@keyframes clickEffect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.score-menu {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.score-menu span {
+    margin-right: 10px;
+}
+
+.winning-screen {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 10;
+}
+
+.winning-screen.show {
+    display: block;
+}
+
+.winning-screen button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
