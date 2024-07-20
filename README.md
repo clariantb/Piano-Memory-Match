@@ -3,15 +3,22 @@ This is a simple memory card game implemented with HTML, CSS, and JavaScript. Th
 
 # Features
 Interactive Gameplay: Flip cards to find matching pairs.
+
 Sound Effects: Each card plays a unique sound when clicked.
+
 Visual Effects: Cards have animations and visual feedback to indicate selection and matching.
+
 Score Tracking: Keeps track of the number of correct matches.
+
 Winning Notification: Displays a winning screen when all pairs are matched.
 
 # How to Play
 Click on a card to flip it over and reveal its content.
+
 Click on another card to try to find a matching pair.
+
 Continue until all pairs are matched.
+
 Win the game when all pairs are found.
 
 # Installation
@@ -19,14 +26,16 @@ To run this game locally, clone the repository and open the index.html file in y
 
 
 ```
-git clone https://github.com/yourusername/memory-card-game.git
-cd memory-card-game
+git clone https://github.com/clariantb/piano-memory-match.git
+cd piano-memory-match
 open index.html
 ```
 
 # Technologies Used
 HTML: Structure of the game.
+
 CSS: Styling and animations.
+
 JavaScript: Game logic and interactivity.
 
 # Contributing
@@ -34,5 +43,7 @@ Contributions are welcome! If you'd like to improve the game or add new features
 
 # Acknowledgments
 Inspired by classic memory card games.
+
 Special thanks to Font Awesome for the icons used in the game.
+
 Feel free to customize this description as needed to fit the specific details and features of your project.
