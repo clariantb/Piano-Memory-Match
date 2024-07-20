@@ -15,11 +15,12 @@ Win the game when all pairs are found.
 Installation
 To run this game locally, clone the repository and open the index.html file in your browser:
 
-bash
-Copy code
+
+```
 git clone https://github.com/yourusername/memory-card-game.git
 cd memory-card-game
 open index.html
+```
 Technologies Used
 HTML: Structure of the game.
 CSS: Styling and animations.
