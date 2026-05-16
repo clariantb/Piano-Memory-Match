@@ -1,0 +1,101 @@
+:root {
+  --walnut-deep: #1f140a;
+  --walnut: #2a1a0f;
+  --walnut-light: #3d2818;
+  --mahogany: #4a2c1a;
+  --gold: #c9a55c;
+  --gold-bright: #e8c98a;
+  --gold-dim: #8a6f3d;
+  --ivory: #f5ecd9;
+  --ivory-dim: #d4c8a8;
+  --burgundy: #6b2c2c;
+  --emerald: #2c5f3a;
+  --shadow: rgba(0, 0, 0, 0.55);
+  --shadow-soft: rgba(0, 0, 0, 0.25);
+
+  --font-serif: 'Cormorant Garamond', 'Garamond', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --flip-duration: 600ms;
+  --transition: 220ms ease;
+}
+
+[data-reduced-motion='true'] {
+  --flip-duration: 1ms;
+  --transition: 0ms;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, var(--walnut-light) 0%, var(--walnut) 40%, var(--walnut-deep) 100%),
+    var(--walnut);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.4 0 0 0 0 0.25 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.45;
+  z-index: 0;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--gold-bright);
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+a { color: var(--gold-bright); }
+
+.serif { font-family: var(--font-serif); }
+.italic { font-style: italic; }
+.muted { color: var(--ivory-dim); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.screen {
+  animation: fadeIn var(--transition);
+}
+
+[data-reduced-motion='true'] .screen { animation: none; }
