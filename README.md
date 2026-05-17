@@ -1,49 +1,63 @@
-# Piano-Memory-Match
-This is a simple memory card game implemented with HTML, CSS, and JavaScript. The objective is to match pairs of cards by flipping them over. The game includes sound effects and visual animations to enhance the user experience.
+# Piano Memory Match
 
-# Features
-Interactive Gameplay: Flip cards to find matching pairs.
+A music memory match game. Flip pairs of cards and match them by sound — across six instruments, four difficulties, and an optional ear-training mode where labels are hidden and you match by listening alone.
 
-Sound Effects: Each card plays a unique sound when clicked.
+Originally a freshman-year vanilla-JS project. Modernized to Svelte + TypeScript + Vite + Tone.js with a concert-hall visual direction.
 
-Visual Effects: Cards have animations and visual feedback to indicate selection and matching.
+## Features
 
-Score Tracking: Keeps track of the number of correct matches.
+- **Six instruments** — piano (sampled), guitar, flute, marimba, violin, polysynth (synthesized via Tone.js)
+- **Four difficulties** — 4, 8, 12, or 16 pairs (Expert spans two chromatic octaves)
+- **Main menu** with Play, Free Play, High Scores, Settings, and How to Play
+- **Match by Ear mode** — cards stay face-down even when flipped; identify pairs by sound
+- **Free Play** — virtual keyboard with the chosen instrument, no game loop
+- **Waveform visualization** synced to the master audio output
+- **Star rating** (3/2/1) based on moves vs. par, with personal-best tracking per instrument + difficulty
+- **3D card flip** that respects `prefers-reduced-motion`
+- **Pause menu** with resume/restart/main menu, Esc-bindable
+- **Confetti + fanfare** on win, with a "replay matched notes" melody button
+- **Keyboard navigation** — Tab/Space to flip, R to replay last pair, Esc to pause
+- **Persistent settings + scores** via `localStorage`
+- **Mobile-friendly** layout with ≥44px touch targets
 
-Winning Notification: Displays a winning screen when all pairs are matched.
+## Development
 
-# How to Play
-Click on a card to flip it over and reveal its content.
+```bash
+npm install
+npm run dev          # vite dev server at http://localhost:5173
+npm run test         # vitest unit tests (56 tests across engine / shuffle / scoring / storage)
+npm run check        # svelte-check + typescript
+npm run build        # type-check + production build to dist/
+npm run preview      # preview the production build
+```
 
-Click on another card to try to find a matching pair.
-
-Continue until all pairs are matched.
-
-Win the game when all pairs are found.
-
-# Installation
-To run this game locally, clone the repository and open the index.html file in your browser:
-
+## Architecture
 
 ```
-git clone https://github.com/clariantb/piano-memory-match.git
-cd piano-memory-match
-open index.html
+src/
+├── lib/
+│   ├── game/      — pure FSM, scoring, seeded shuffle (unit-tested)
+│   ├── audio/     — Tone.js engine singleton, instrument factory, note tables
+│   ├── stores/    — Svelte stores for game / audio / settings / prefs
+│   ├── storage.ts — localStorage facade with schema versioning
+│   └── types.ts
+├── screens/       — one Svelte component per top-level screen
+├── components/    — Card, Hud, Button, WaveformViz, Confetti
+└── App.svelte     — store-driven screen router
 ```
 
-# Technologies Used
-HTML: Structure of the game.
+The match logic lives in `src/lib/game/engine.ts` as a pure finite state machine (`idle → firstFlipped → secondFlipped → resolving → won`), which is what makes it unit-testable and what eliminates the race-condition bug in the v1 click handler.
 
-CSS: Styling and animations.
+Audio is a single Tone.js `AudioContext` unlocked on first interaction. Piano uses `Tone.Sampler` over the original mp3s (pitch-shifting to fill chromatic notes); the rest are synthesized so no new sample files are required.
 
-JavaScript: Game logic and interactivity.
+## Tech
 
-# Contributing
-Contributions are welcome! If you'd like to improve the game or add new features, feel free to open an issue or submit a pull request.
+- [Svelte 4](https://svelte.dev) + TypeScript
+- [Vite 5](https://vitejs.dev)
+- [Tone.js 15](https://tonejs.github.io) for audio
+- [canvas-confetti](https://www.kirilv.com/canvas-confetti/) for the win effect
+- [Vitest](https://vitest.dev) for unit tests
 
-# Acknowledgments
-Inspired by classic memory card games.
+## License
 
-Special thanks to Font Awesome for the icons used in the game.
-
-Feel free to customize this description as needed to fit the specific details and features of your project.
+MIT.

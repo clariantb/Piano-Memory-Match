@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Card Game</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="game-container">
-        <div class="score-menu">
-            <span id="score">Correct: 0</span>
-        </div>
-        <div class="game-grid" id="game-grid"></div>
-        <div class="winning-screen" id="winning-screen">
-            <div id="winning-message">Congratulations! You Won!</div>
-            <button onclick="location.reload()">Play Again</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2a1a0f" />
+    <meta name="description" content="A music memory match game — match pairs by ear or by sight across piano, guitar, flute, marimba, violin, and synth." />
+    <title>Piano Memory Match</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
