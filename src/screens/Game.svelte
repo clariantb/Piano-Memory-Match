@@ -189,14 +189,15 @@
   .board {
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
-    gap: clamp(6px, 1.5vw, 14px);
+    gap: clamp(4px, 1vw, 10px);
     width: 100%;
-    max-width: min(700px, 90vw);
+    max-width: min(1000px, 95vw);
+    --row-height: clamp(85px, calc((88vh - 240px) / var(--rows)), 170px);
   }
 
   .viz {
     width: 100%;
-    max-width: min(700px, 90vw);
+    max-width: min(1000px, 95vw);
     opacity: 0.7;
   }
 

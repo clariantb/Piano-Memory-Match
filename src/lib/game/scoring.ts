@@ -38,8 +38,8 @@ export function findBestScore(
 export const DIFFICULTIES: readonly DifficultyConfig[] = [
   { id: 'easy', label: 'Easy', pairs: 4, cols: 4, rows: 2, parMoves: 6 },
   { id: 'medium', label: 'Medium', pairs: 8, cols: 4, rows: 4, parMoves: 14 },
-  { id: 'hard', label: 'Hard', pairs: 12, cols: 4, rows: 6, parMoves: 22 },
-  { id: 'expert', label: 'Expert', pairs: 16, cols: 4, rows: 8, parMoves: 32 }
+  { id: 'hard', label: 'Hard', pairs: 12, cols: 6, rows: 4, parMoves: 22 },
+  { id: 'expert', label: 'Expert', pairs: 16, cols: 8, rows: 4, parMoves: 32 }
 ];
 
 export function getDifficulty(id: string): DifficultyConfig {
