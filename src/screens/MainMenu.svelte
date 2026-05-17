@@ -18,7 +18,7 @@
     <div class="eyebrow">Curtain Up</div>
     <h1>Piano Memory<br /><em>Match</em></h1>
     <p class="subtitle">
-      A music memory game — match pairs of notes by sight or by ear, across six instruments.
+      A music memory game — match pairs of notes by sight or by ear, across ten instruments.
     </p>
     <div class="flourish">𝄞</div>
   </header>

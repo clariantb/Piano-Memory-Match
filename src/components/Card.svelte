@@ -44,7 +44,7 @@
 
 <style>
   .card {
-    width: 100%;
+    width: var(--card-size, clamp(110px, 15vw, 170px));
     height: var(--card-size, clamp(110px, 15vw, 170px));
     padding: 0;
     background: none;
@@ -52,6 +52,8 @@
     border-radius: 10px;
     cursor: pointer;
     display: block;
+    align-self: center;
+    justify-self: center;
     transition: transform var(--transition);
   }
   .card:disabled { cursor: default; }

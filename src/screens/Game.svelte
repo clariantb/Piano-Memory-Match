@@ -194,6 +194,7 @@
     --card-size: min(170px, var(--fit-w), var(--fit-h));
     display: grid;
     grid-template-columns: repeat(var(--cols), var(--card-size));
+    grid-auto-rows: var(--card-size);
     gap: var(--gap);
     justify-content: center;
   }
