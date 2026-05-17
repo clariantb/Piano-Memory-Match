@@ -187,12 +187,15 @@
   }
 
   .board {
+    --gap: 10px;
+    --board-max: min(95vw, 1000px);
+    --fit-w: calc((var(--board-max) - (var(--cols) - 1) * var(--gap)) / var(--cols));
+    --fit-h: calc((88vh - 260px - (var(--rows) - 1) * var(--gap)) / var(--rows));
+    --card-size: min(170px, var(--fit-w), var(--fit-h));
     display: grid;
-    grid-template-columns: repeat(var(--cols), 1fr);
-    gap: clamp(4px, 1vw, 10px);
-    width: 100%;
-    max-width: min(1000px, 95vw);
-    --row-height: clamp(85px, calc((88vh - 240px) / var(--rows)), 170px);
+    grid-template-columns: repeat(var(--cols), var(--card-size));
+    gap: var(--gap);
+    justify-content: center;
   }
 
   .viz {

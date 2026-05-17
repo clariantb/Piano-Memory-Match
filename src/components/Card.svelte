@@ -45,7 +45,7 @@
 <style>
   .card {
     width: 100%;
-    height: var(--row-height, clamp(110px, 15vw, 170px));
+    height: var(--card-size, clamp(110px, 15vw, 170px));
     padding: 0;
     background: none;
     perspective: 1000px;
