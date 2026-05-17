@@ -44,16 +44,14 @@
 
 <style>
   .card {
-    width: var(--card-size, clamp(110px, 15vw, 170px));
-    height: var(--card-size, clamp(110px, 15vw, 170px));
+    width: 100%;
+    height: 100%;
     padding: 0;
     background: none;
     perspective: 1000px;
     border-radius: 10px;
     cursor: pointer;
     display: block;
-    align-self: center;
-    justify-self: center;
     transition: transform var(--transition);
   }
   .card:disabled { cursor: default; }
