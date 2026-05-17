@@ -59,7 +59,7 @@
     .map(({ note, whiteIdx }) => ({
       note,
       label: noteLabel(note),
-      left: (whiteIdx + 1) * WHITE_W + whiteIdx * GAP + GAP / 2 - BLACK_W / 2
+      left: (whiteIdx + 1) * WHITE_W + whiteIdx * GAP + GAP / 2 - BLACK_W / 2 + 4
     }));
 </script>
 
