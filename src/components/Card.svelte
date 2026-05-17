@@ -28,8 +28,10 @@
   <div class="inner">
     <div class="face back" style:background={meta.cardBackGradient}>
       <span class="monogram" style:color={meta.accent}>{meta.cardBackMonogram}</span>
-      <span class="filigree top">◆</span>
-      <span class="filigree bot">◆</span>
+      <span class="filigree tl">◆</span>
+      <span class="filigree tr">◆</span>
+      <span class="filigree bl">◆</span>
+      <span class="filigree br">◆</span>
     </div>
     <div class="face front">
       <span class="note">{faceText}</span>
@@ -42,13 +44,14 @@
 
 <style>
   .card {
-    aspect-ratio: 3 / 4;
     width: 100%;
+    height: clamp(110px, 15vw, 170px);
     padding: 0;
     background: none;
     perspective: 1000px;
     border-radius: 10px;
     cursor: pointer;
+    display: block;
     transition: transform var(--transition);
   }
   .card:disabled { cursor: default; }
@@ -83,27 +86,40 @@
   .back::before {
     content: '';
     position: absolute;
-    inset: 6px;
-    border: 1px solid rgba(201, 165, 92, 0.25);
-    border-radius: 6px;
+    inset: 8px;
+    border: 1px solid rgba(201, 165, 92, 0.3);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+
+  .back::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(201, 165, 92, 0.12);
+    border-radius: 3px;
     pointer-events: none;
   }
 
   .monogram {
     font-family: var(--font-serif);
-    font-size: clamp(28px, 4vw, 42px);
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    font-size: clamp(40px, 6.5vw, 60px);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
     z-index: 1;
+    line-height: 1;
   }
 
   .filigree {
     position: absolute;
-    font-size: 8px;
-    color: var(--gold-dim);
-    opacity: 0.6;
+    font-size: 9px;
+    color: var(--gold);
+    opacity: 0.55;
+    z-index: 1;
   }
-  .filigree.top { top: 10px; right: 10px; }
-  .filigree.bot { bottom: 10px; left: 10px; }
+  .filigree.tl { top: 12px; left: 14px; }
+  .filigree.tr { top: 12px; right: 14px; }
+  .filigree.bl { bottom: 12px; left: 14px; }
+  .filigree.br { bottom: 12px; right: 14px; }
 
   .front {
     background: linear-gradient(180deg, var(--ivory) 0%, #ede0c2 100%);
@@ -117,7 +133,8 @@
   .front .note {
     font-family: var(--font-serif);
     font-weight: 600;
-    font-size: clamp(28px, 5vw, 48px);
+    font-size: clamp(32px, 5.5vw, 52px);
+    line-height: 1;
   }
 
   .hide-face.flipped .front {
