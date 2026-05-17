@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import ViolinMp3 from 'tonejs-instrument-violin-mp3';
 import type { InstrumentId, InstrumentMeta } from '../types';
 import { getMasterNode } from './engine';
 
@@ -148,34 +149,12 @@ function marimbaNode(): InstrumentNode {
 }
 
 function violinNode(): InstrumentNode {
-  const synth = new Tone.PolySynth(Tone.MonoSynth, {
-    oscillator: { type: 'fatsawtooth', count: 3, spread: 15 },
-    envelope: { attack: 0.35, decay: 0.15, sustain: 0.95, release: 0.9 },
-    filterEnvelope: {
-      attack: 0.08,
-      decay: 0.3,
-      sustain: 0.5,
-      release: 1.5,
-      baseFrequency: 220,
-      octaves: 2.8
-    },
-    filter: { Q: 1.4, type: 'lowpass', rolloff: -12 },
-    volume: -14
-  });
-  const vibrato = new Tone.Vibrato({
-    frequency: 5.5,
-    depth: 0.09,
-    type: 'sine'
-  }).connect(getMasterNode());
-  synth.connect(vibrato);
+  const violin = new ViolinMp3().connect(getMasterNode());
   return {
     id: 'violin',
-    play: (note, when, duration = '2n') => synth.triggerAttackRelease(note, duration, when),
-    ready: async () => undefined,
-    dispose: () => {
-      synth.dispose();
-      vibrato.dispose();
-    }
+    play: (note, when, duration = '2n') => violin.triggerAttackRelease(note, duration, when),
+    ready: () => Tone.loaded(),
+    dispose: () => violin.dispose()
   };
 }
 

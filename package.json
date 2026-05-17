@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",
-    "tone": "^15.0.4"
+    "tone": "^15.0.4",
+    "tonejs-instrument-violin-mp3": "^1.1.1"
   }
 }
