@@ -97,14 +97,14 @@ function pianoNode(): InstrumentNode {
 
 function guitarNode(): InstrumentNode {
   const pluck = new Tone.PluckSynth({
-    attackNoise: 0.8,
-    dampening: 4000,
-    resonance: 0.9,
-    release: 0.6
+    attackNoise: 0.6,
+    dampening: 2200,
+    resonance: 0.985,
+    release: 2.5
   }).connect(getMasterNode());
   return {
     id: 'guitar',
-    play: (note, when, duration = '4n') => pluck.triggerAttackRelease(note, duration, when),
+    play: (note, when, duration = '1n') => pluck.triggerAttackRelease(note, duration, when),
     ready: async () => undefined,
     dispose: () => pluck.dispose()
   };
@@ -115,7 +115,7 @@ function fluteNode(): InstrumentNode {
     oscillator: { type: 'sine' },
     envelope: { attack: 0.08, decay: 0.1, sustain: 0.7, release: 0.5 },
     volume: -8
-  }).connect(getMasterNode());
+  });
   const vibrato = new Tone.Vibrato(5, 0.04).connect(getMasterNode());
   synth.connect(vibrato);
   return {
@@ -130,32 +130,43 @@ function fluteNode(): InstrumentNode {
 }
 
 function marimbaNode(): InstrumentNode {
-  const synth = new Tone.MetalSynth({
-    envelope: { attack: 0.001, decay: 0.6, release: 0.4 },
-    harmonicity: 3.1,
-    modulationIndex: 16,
-    resonance: 4000,
-    octaves: 0.5,
-    volume: -22
+  const synth = new Tone.PolySynth(Tone.FMSynth, {
+    harmonicity: 3.01,
+    modulationIndex: 12,
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.001, decay: 1.6, sustain: 0, release: 1.8 },
+    modulation: { type: 'sine' },
+    modulationEnvelope: { attack: 0.002, decay: 0.25, sustain: 0, release: 0.2 },
+    volume: -6
   }).connect(getMasterNode());
   return {
     id: 'marimba',
-    play: (note, when, duration = '8n') => synth.triggerAttackRelease(note, duration, when),
+    play: (note, when, duration = '2n') => synth.triggerAttackRelease(note, duration, when),
     ready: async () => undefined,
     dispose: () => synth.dispose()
   };
 }
 
 function violinNode(): InstrumentNode {
-  const synth = new Tone.AMSynth({
-    harmonicity: 2.5,
-    oscillator: { type: 'sawtooth' },
-    envelope: { attack: 0.3, decay: 0.2, sustain: 0.8, release: 0.6 },
-    modulation: { type: 'sine' },
-    modulationEnvelope: { attack: 0.5, decay: 0, sustain: 1, release: 0.5 },
-    volume: -10
+  const synth = new Tone.PolySynth(Tone.MonoSynth, {
+    oscillator: { type: 'fatsawtooth', count: 3, spread: 15 },
+    envelope: { attack: 0.35, decay: 0.15, sustain: 0.95, release: 0.9 },
+    filterEnvelope: {
+      attack: 0.08,
+      decay: 0.3,
+      sustain: 0.5,
+      release: 1.5,
+      baseFrequency: 220,
+      octaves: 2.8
+    },
+    filter: { Q: 1.4, type: 'lowpass', rolloff: -12 },
+    volume: -14
+  });
+  const vibrato = new Tone.Vibrato({
+    frequency: 5.5,
+    depth: 0.09,
+    type: 'sine'
   }).connect(getMasterNode());
-  const vibrato = new Tone.Vibrato(6, 0.06).connect(getMasterNode());
   synth.connect(vibrato);
   return {
     id: 'violin',
