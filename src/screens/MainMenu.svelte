@@ -40,10 +40,6 @@
       How to Play
     </Button>
   </nav>
-
-  <footer>
-    <p class="muted italic serif">— a freshman etude, returned with thanks —</p>
-  </footer>
 </section>
 
 <style>
@@ -57,7 +53,7 @@
     align-items: stretch;
     text-align: center;
     min-height: 100vh;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   header {
@@ -107,6 +103,4 @@
     flex-direction: column;
     gap: 10px;
   }
-
-  footer p { margin: 0; font-size: 14px; }
 </style>
