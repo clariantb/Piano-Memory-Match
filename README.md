@@ -1,6 +1,6 @@
 # Piano Memory Match
 
-A music memory match game. Flip pairs of cards and match them by sound — across six instruments, four difficulties, and an optional ear-training mode where labels are hidden and you match by listening alone.
+A music memory match game. Flip pairs of cards and match them by sound — across ten sampled instruments, four difficulties, and an optional ear-training mode where labels are hidden and you match by listening alone.
 
 Originally a freshman-year vanilla-JS project. Modernized to Svelte + TypeScript + Vite + Tone.js with a concert-hall visual direction.
 

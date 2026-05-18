@@ -1,4 +1,12 @@
 import * as Tone from 'tone';
+import ViolinMp3 from 'tonejs-instrument-violin-mp3';
+import GuitarMp3 from 'tonejs-instrument-guitar-acoustic-mp3';
+import FluteMp3 from 'tonejs-instrument-flute-mp3';
+import XylophoneMp3 from 'tonejs-instrument-xylophone-mp3';
+import TrumpetMp3 from 'tonejs-instrument-trumpet-mp3';
+import HarpMp3 from 'tonejs-instrument-harp-mp3';
+import SaxophoneMp3 from 'tonejs-instrument-saxophone-mp3';
+import CelloMp3 from 'tonejs-instrument-cello-mp3';
 import type { InstrumentId, InstrumentMeta } from '../types';
 import { getMasterNode } from './engine';
 
@@ -29,6 +37,24 @@ export const INSTRUMENTS: readonly InstrumentMeta[] = [
     cardBackMonogram: '♪'
   },
   {
+    id: 'violin',
+    name: 'Violin',
+    tagline: 'Singing strings with vibrato',
+    symbol: '𝅘𝅥',
+    accent: '#c47a5e',
+    cardBackGradient: 'linear-gradient(135deg, #2a1208 0%, #180a04 100%)',
+    cardBackMonogram: '♬'
+  },
+  {
+    id: 'cello',
+    name: 'Cello',
+    tagline: 'Deep bowed resonance',
+    symbol: '𝅗𝅥',
+    accent: '#a14a4a',
+    cardBackGradient: 'linear-gradient(135deg, #2a1010 0%, #180808 100%)',
+    cardBackMonogram: '♬'
+  },
+  {
     id: 'flute',
     name: 'Silver Flute',
     tagline: 'Pure breath, floating tone',
@@ -38,22 +64,40 @@ export const INSTRUMENTS: readonly InstrumentMeta[] = [
     cardBackMonogram: '♭'
   },
   {
-    id: 'marimba',
-    name: 'Marimba',
-    tagline: 'Soft mallets on rosewood',
-    symbol: '𝅗𝅥',
-    accent: '#d4a574',
-    cardBackGradient: 'linear-gradient(135deg, #2a1c0d 0%, #1a1108 100%)',
-    cardBackMonogram: '♩'
+    id: 'trumpet',
+    name: 'Trumpet',
+    tagline: 'Bright brass call',
+    symbol: '♫',
+    accent: '#e0a04d',
+    cardBackGradient: 'linear-gradient(135deg, #3a2208 0%, #1f1204 100%)',
+    cardBackMonogram: '♫'
   },
   {
-    id: 'violin',
-    name: 'Violin',
-    tagline: 'Singing strings with vibrato',
-    symbol: '𝅘𝅥',
-    accent: '#c47a5e',
-    cardBackGradient: 'linear-gradient(135deg, #2a1208 0%, #180a04 100%)',
-    cardBackMonogram: '♬'
+    id: 'saxophone',
+    name: 'Saxophone',
+    tagline: 'Smoky reed, jazz at midnight',
+    symbol: '♬',
+    accent: '#d49b5a',
+    cardBackGradient: 'linear-gradient(135deg, #2e1a08 0%, #1a0e04 100%)',
+    cardBackMonogram: '♫'
+  },
+  {
+    id: 'harp',
+    name: 'Concert Harp',
+    tagline: 'Plucked strings, ethereal',
+    symbol: '𝄐',
+    accent: '#c9b8d4',
+    cardBackGradient: 'linear-gradient(135deg, #1d1830 0%, #100c1a 100%)',
+    cardBackMonogram: '♪'
+  },
+  {
+    id: 'xylophone',
+    name: 'Xylophone',
+    tagline: 'Bright wooden bars',
+    symbol: '𝅗𝅥',
+    accent: '#d4b074',
+    cardBackGradient: 'linear-gradient(135deg, #2a1c0d 0%, #1a1108 100%)',
+    cardBackMonogram: '♩'
   },
   {
     id: 'synth',
@@ -95,76 +139,17 @@ function pianoNode(): InstrumentNode {
   };
 }
 
-function guitarNode(): InstrumentNode {
-  const pluck = new Tone.PluckSynth({
-    attackNoise: 0.8,
-    dampening: 4000,
-    resonance: 0.9,
-    release: 0.6
-  }).connect(getMasterNode());
+function sampledNode(
+  id: InstrumentId,
+  sampler: Tone.Sampler,
+  duration = '2n'
+): InstrumentNode {
+  sampler.connect(getMasterNode());
   return {
-    id: 'guitar',
-    play: (note, when, duration = '4n') => pluck.triggerAttackRelease(note, duration, when),
-    ready: async () => undefined,
-    dispose: () => pluck.dispose()
-  };
-}
-
-function fluteNode(): InstrumentNode {
-  const synth = new Tone.Synth({
-    oscillator: { type: 'sine' },
-    envelope: { attack: 0.08, decay: 0.1, sustain: 0.7, release: 0.5 },
-    volume: -8
-  }).connect(getMasterNode());
-  const vibrato = new Tone.Vibrato(5, 0.04).connect(getMasterNode());
-  synth.connect(vibrato);
-  return {
-    id: 'flute',
-    play: (note, when, duration = '2n') => synth.triggerAttackRelease(note, duration, when),
-    ready: async () => undefined,
-    dispose: () => {
-      synth.dispose();
-      vibrato.dispose();
-    }
-  };
-}
-
-function marimbaNode(): InstrumentNode {
-  const synth = new Tone.MetalSynth({
-    envelope: { attack: 0.001, decay: 0.6, release: 0.4 },
-    harmonicity: 3.1,
-    modulationIndex: 16,
-    resonance: 4000,
-    octaves: 0.5,
-    volume: -22
-  }).connect(getMasterNode());
-  return {
-    id: 'marimba',
-    play: (note, when, duration = '8n') => synth.triggerAttackRelease(note, duration, when),
-    ready: async () => undefined,
-    dispose: () => synth.dispose()
-  };
-}
-
-function violinNode(): InstrumentNode {
-  const synth = new Tone.AMSynth({
-    harmonicity: 2.5,
-    oscillator: { type: 'sawtooth' },
-    envelope: { attack: 0.3, decay: 0.2, sustain: 0.8, release: 0.6 },
-    modulation: { type: 'sine' },
-    modulationEnvelope: { attack: 0.5, decay: 0, sustain: 1, release: 0.5 },
-    volume: -10
-  }).connect(getMasterNode());
-  const vibrato = new Tone.Vibrato(6, 0.06).connect(getMasterNode());
-  synth.connect(vibrato);
-  return {
-    id: 'violin',
-    play: (note, when, duration = '2n') => synth.triggerAttackRelease(note, duration, when),
-    ready: async () => undefined,
-    dispose: () => {
-      synth.dispose();
-      vibrato.dispose();
-    }
+    id,
+    play: (note, when, dur = duration) => sampler.triggerAttackRelease(note, dur, when),
+    ready: () => Tone.loaded(),
+    dispose: () => sampler.dispose()
   };
 }
 
@@ -184,10 +169,14 @@ function polysynthNode(): InstrumentNode {
 
 const FACTORIES: Record<InstrumentId, () => InstrumentNode> = {
   piano: pianoNode,
-  guitar: guitarNode,
-  flute: fluteNode,
-  marimba: marimbaNode,
-  violin: violinNode,
+  guitar: () => sampledNode('guitar', new GuitarMp3(), '2n'),
+  violin: () => sampledNode('violin', new ViolinMp3(), '2n'),
+  cello: () => sampledNode('cello', new CelloMp3(), '2n'),
+  flute: () => sampledNode('flute', new FluteMp3(), '2n'),
+  trumpet: () => sampledNode('trumpet', new TrumpetMp3(), '2n'),
+  saxophone: () => sampledNode('saxophone', new SaxophoneMp3(), '2n'),
+  harp: () => sampledNode('harp', new HarpMp3(), '1n'),
+  xylophone: () => sampledNode('xylophone', new XylophoneMp3(), '4n'),
   synth: polysynthNode
 };
 

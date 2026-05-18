@@ -1,4 +1,14 @@
-export type InstrumentId = 'piano' | 'guitar' | 'flute' | 'marimba' | 'violin' | 'synth';
+export type InstrumentId =
+  | 'piano'
+  | 'guitar'
+  | 'violin'
+  | 'cello'
+  | 'flute'
+  | 'trumpet'
+  | 'saxophone'
+  | 'harp'
+  | 'xylophone'
+  | 'synth';
 
 export type DifficultyId = 'easy' | 'medium' | 'hard' | 'expert';
 

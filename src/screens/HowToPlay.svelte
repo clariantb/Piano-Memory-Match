@@ -13,7 +13,7 @@
     <ol class="steps">
       <li>
         <h3>Choose your instrument</h3>
-        <p>Six voices, each with its own timbre — piano, guitar, flute, marimba, violin, polysynth.</p>
+        <p>Ten voices, each with its own timbre — grand piano, acoustic guitar, violin, cello, silver flute, trumpet, saxophone, concert harp, xylophone, and polysynth.</p>
       </li>
       <li>
         <h3>Pick a difficulty</h3>

@@ -43,11 +43,24 @@
     window.removeEventListener('keydown', handleKey);
   });
 
-  $: keys = CHROMATIC_2_OCT.map((note) => ({
-    note,
-    label: noteLabel(note),
-    sharp: note.includes('#')
-  }));
+  const WHITE_W = 44;
+  const BLACK_W = 30;
+  const GAP = 4;
+
+  $: whites = CHROMATIC_2_OCT.filter((n) => !n.includes('#'));
+  $: sharps = CHROMATIC_2_OCT
+    .filter((note) => note.includes('#'))
+    .map((note) => {
+      const precedingWhite = note.replace(/#/, '');
+      const whiteIdx = whites.indexOf(precedingWhite);
+      return { note, whiteIdx };
+    })
+    .filter(({ whiteIdx }) => whiteIdx >= 0 && whiteIdx < whites.length - 1)
+    .map(({ note, whiteIdx }) => ({
+      note,
+      label: noteLabel(note),
+      left: (whiteIdx + 1) * WHITE_W + whiteIdx * GAP + GAP / 2 - BLACK_W / 2 + 20
+    }));
 </script>
 
 <section class="screen page">
@@ -77,24 +90,22 @@
   </div>
 
   <div class="keyboard">
-    <div class="row sharps">
-      {#each keys as k}
-        {#if k.sharp}
-          <button class="key sharp" on:mousedown={() => play(k.note)}>
-            <span>{k.label}</span>
-          </button>
-        {:else}
-          <span class="key-spacer" class:wide={k.label === 'E' || k.label === 'B'}></span>
-        {/if}
-      {/each}
-    </div>
-    <div class="row naturals">
-      {#each keys.filter((k) => !k.sharp) as k}
-        <button class="key natural" on:mousedown={() => play(k.note)}>
-          <span>{k.label}</span>
+    <div class="naturals">
+      {#each whites as note}
+        <button class="key natural" on:mousedown={() => play(note)}>
+          <span>{noteLabel(note)}</span>
         </button>
       {/each}
     </div>
+    {#each sharps as s}
+      <button
+        class="key sharp"
+        style:left="{s.left}px"
+        on:mousedown={() => play(s.note)}
+      >
+        <span>{s.label}</span>
+      </button>
+    {/each}
   </div>
 </section>
 
@@ -171,31 +182,34 @@
     padding: 20px;
     position: relative;
     box-shadow: 0 8px 24px var(--shadow);
+    width: max-content;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow-x: auto;
   }
-  .row { display: flex; gap: 4px; justify-content: center; }
-  .sharps {
-    height: 100px;
-    margin-bottom: -100px;
-    z-index: 2;
+  .naturals {
+    display: flex;
+    gap: 4px;
     position: relative;
-    padding: 0 22px;
+    z-index: 1;
   }
-  .naturals { z-index: 1; position: relative; }
 
   .key {
-    background: linear-gradient(180deg, var(--ivory) 0%, #e3d4ad 100%);
-    border: 1px solid var(--gold-dim);
     border-radius: 0 0 6px 6px;
-    color: var(--walnut);
-    width: 44px;
-    height: 160px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 12px;
     font-family: var(--font-serif);
-    font-size: 14px;
     transition: all 80ms;
+  }
+  .key.natural {
+    background: linear-gradient(180deg, var(--ivory) 0%, #e3d4ad 100%);
+    border: 1px solid var(--gold-dim);
+    color: var(--walnut);
+    width: 44px;
+    height: 160px;
+    font-size: 14px;
     box-shadow: 0 4px 0 var(--gold-dim), 0 6px 14px var(--shadow);
   }
   .key.natural:active {
@@ -203,19 +217,20 @@
     box-shadow: 0 2px 0 var(--gold-dim);
   }
   .key.sharp {
+    position: absolute;
+    top: 20px;
     background: linear-gradient(180deg, #2a1a0f 0%, #1a0d04 100%);
+    border: 1px solid var(--walnut-deep);
     color: var(--gold-bright);
     width: 30px;
     height: 100px;
     border-radius: 0 0 4px 4px;
-    border-color: var(--walnut-deep);
     box-shadow: 0 3px 0 #0a0502, 0 5px 12px var(--shadow);
     font-size: 11px;
+    z-index: 2;
   }
   .key.sharp:active {
     transform: translateY(1px);
     box-shadow: 0 2px 0 #0a0502;
   }
-  .key-spacer { width: 30px; flex-shrink: 0; }
-  .key-spacer.wide { margin-right: 4px; }
 </style>

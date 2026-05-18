@@ -188,15 +188,19 @@
 
   .board {
     display: grid;
-    grid-template-columns: repeat(var(--cols), 1fr);
-    gap: clamp(6px, 1.5vw, 14px);
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 10px;
     width: 100%;
-    max-width: min(700px, 90vw);
+    max-width: min(calc(var(--cols) * 180px + (var(--cols) - 1) * 10px), 95vw);
+    max-height: calc(85vh - 200px);
+    aspect-ratio: var(--cols) / var(--rows);
+    margin: 0 auto;
   }
 
   .viz {
     width: 100%;
-    max-width: min(700px, 90vw);
+    max-width: min(1000px, 95vw);
     opacity: 0.7;
   }
 
