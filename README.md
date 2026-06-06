@@ -2,11 +2,10 @@
 
 A music memory match game. Flip pairs of cards and match them by sound — across ten sampled instruments, four difficulties, and an optional ear-training mode where labels are hidden and you match by listening alone.
 
-Originally a freshman-year vanilla-JS project. Modernized to Svelte + TypeScript + Vite + Tone.js with a concert-hall visual direction.
 
 ## Features
 
-- **Six instruments** — piano (sampled), guitar, flute, marimba, violin, polysynth (synthesized via Tone.js)
+- **Ten instruments** — piano (sampled), guitar, flute, marimba, violin, etc. 
 - **Four difficulties** — 4, 8, 12, or 16 pairs (Expert spans two chromatic octaves)
 - **Main menu** with Play, Free Play, High Scores, Settings, and How to Play
 - **Match by Ear mode** — cards stay face-down even when flipped; identify pairs by sound
